@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShoeNotifications">
-        <activity android:name=".onboarding.OnboardingActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".onboarding.OnboardingActivity"> <!-- todo change back to mainactivity -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,3 +19,7 @@
     </application>
 
 </manifest>
+
+<!--<activity android:name=".onboarding.OnboardingActivity"></activity>-->
+<!--<activity android:name=".MainActivity">-->
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/helloFragment">
+
+    <fragment
+        android:id="@+id/helloFragment"
+        android:name="exercises.android.ronm.shoenotifications.onboarding.hello.HelloFragment"
+        android:label="fragment_hello"
+        tools:layout="@layout/fragment_hello" >
+        <action
+            android:id="@+id/action_helloFragment_to_ageFragment"
+            app:destination="@id/ageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ageFragment"
+        android:name="exercises.android.ronm.shoenotifications.onboarding.age.AgeFragment"
+        android:label="fragment_age"
+        tools:layout="@layout/fragment_age" >
+        <action
+            android:id="@+id/action_ageFragment_to_termsFragment"
+            app:destination="@id/termsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/termsFragment"
+        android:name="exercises.android.ronm.shoenotifications.onboarding.terms.TermsFragment"
+        android:label="fragment_terms"
+        tools:layout="@layout/fragment_terms" >
+        <action
+            android:id="@+id/action_termsFragment_to_mathQuestionFragment"
+            app:destination="@id/mathQuestionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mathQuestionFragment"
+        android:name="exercises.android.ronm.shoenotifications.onboarding.math.MathQuestionFragment"
+        android:label="fragment_math_question"
+        tools:layout="@layout/fragment_math_question" >
+        <action
+            android:id="@+id/action_mathQuestionFragment_to_nameFragment"
+            app:destination="@id/nameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nameFragment"
+        android:name="exercises.android.ronm.shoenotifications.onboarding.name.NameFragment"
+        android:label="fragment_name"
+        tools:layout="@layout/fragment_name" />
+</navigation>
