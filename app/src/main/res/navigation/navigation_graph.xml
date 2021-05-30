@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_hello" >
         <action
             android:id="@+id/action_helloFragment_to_ageFragment"
-            app:destination="@id/ageFragment" />
+            app:destination="@id/ageFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"/>
     </fragment>
     <fragment
         android:id="@+id/ageFragment"
@@ -21,7 +25,11 @@
         tools:layout="@layout/fragment_age" >
         <action
             android:id="@+id/action_ageFragment_to_termsFragment"
-            app:destination="@id/termsFragment" />
+            app:destination="@id/termsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"/>
     </fragment>
     <fragment
         android:id="@+id/termsFragment"
@@ -30,7 +38,11 @@
         tools:layout="@layout/fragment_terms" >
         <action
             android:id="@+id/action_termsFragment_to_mathQuestionFragment"
-            app:destination="@id/mathQuestionFragment" />
+            app:destination="@id/mathQuestionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"/>
     </fragment>
     <fragment
         android:id="@+id/mathQuestionFragment"
@@ -39,7 +51,11 @@
         tools:layout="@layout/fragment_math_question" >
         <action
             android:id="@+id/action_mathQuestionFragment_to_nameFragment"
-            app:destination="@id/nameFragment" />
+            app:destination="@id/nameFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"/>
     </fragment>
     <fragment
         android:id="@+id/nameFragment"

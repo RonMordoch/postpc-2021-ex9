@@ -2,7 +2,6 @@ package exercises.android.ronm.shoenotifications.onboarding.math
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import exercises.android.ronm.shoenotifications.onboarding.age.AgeViewModel
 import java.lang.Exception
 
 class MathViewModel : ViewModel() {

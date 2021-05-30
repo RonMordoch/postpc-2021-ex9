@@ -21,9 +21,12 @@ class AgeFragment : Fragment() {
     private lateinit var textFieldAge: TextInputLayout
     private lateinit var fabAgeDone: FloatingActionButton
     private val onboardingViewModel: OnboardingViewModel by activityViewModels()
-    private val ageViewModel : AgeViewModel by viewModels()
+    private val ageViewModel: AgeViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        if (savedInstanceState != null){
+            val  s1 =savedInstanceState.getString("BUNDLE_KEY_AGE")
+        }
         return inflater.inflate(R.layout.fragment_age, container, false)
     }
 
@@ -38,19 +41,17 @@ class AgeFragment : Fragment() {
         }
 
         // set an observer to enable button upon valid age input
-        val ageValidObserver = Observer<Boolean?>{ isAgeValid ->
-            if (isAgeValid == null){ // disables button immediately when view is created in the first time
+        val ageValidObserver = Observer<Boolean?> { isAgeValid ->
+            if (isAgeValid == null) { // disables button immediately when view is created in the first time
                 textFieldAge.error = ""
                 fabAgeDone.isEnabled = false
                 return@Observer
             }
             fabAgeDone.isEnabled = isAgeValid
-            if (!isAgeValid){
+            if (!isAgeValid) {
                 textFieldAge.error = "Please enter a valid age (18+)!"
                 fabAgeDone.isEnabled = false
-            }
-            else
-            {
+            } else {
                 textFieldAge.error = ""
                 fabAgeDone.isEnabled = true
             }
@@ -59,12 +60,12 @@ class AgeFragment : Fragment() {
         ageViewModel.ageValidLiveData.observe(viewLifecycleOwner, ageValidObserver)
 
         // set on-click listener for the fab to navigate forward
-        fabAgeDone.setOnClickListener{
+        fabAgeDone.setOnClickListener {
             onboardingViewModel.increaseProgress()
             val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.navHostFragment) as NavHostFragment
             val navController = navHostFragment.navController
             navController.navigate(R.id.action_ageFragment_to_termsFragment)
         }
-}
+    }
 
 }
