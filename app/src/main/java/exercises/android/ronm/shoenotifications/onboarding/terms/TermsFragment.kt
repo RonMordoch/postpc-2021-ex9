@@ -31,9 +31,12 @@ class TermsFragment : Fragment() {
         // enable button only when user has reached the end of terms
         val scrollViewTermsText: ScrollView = view.findViewById(R.id.scrollViewTermsText)
         scrollViewTermsText.setOnScrollChangeListener { _, _, _, _, _ ->
-            val viewBottom = scrollViewTermsText.getChildAt(scrollViewTermsText.childCount - 1);
-            val diff = (viewBottom.bottom - (scrollViewTermsText.height + scrollViewTermsText.scrollY));
-            fabAgreeToTerms.isEnabled = (diff == 0)  // if diff is zero, then the bottom has been reached
+            // only run when button is disabled so it won't disable when user scrolls all the way down and then scrolls a bit up
+            if (!fabAgreeToTerms.isEnabled) {
+                val viewBottom = scrollViewTermsText.getChildAt(scrollViewTermsText.childCount - 1);
+                val diff = (viewBottom.bottom - (scrollViewTermsText.height + scrollViewTermsText.scrollY));
+                fabAgreeToTerms.isEnabled = (diff == 0)  // if diff is zero, then the bottom has been reached}
+            }
         }
 
         fabAgreeToTerms.setOnClickListener {
@@ -43,7 +46,6 @@ class TermsFragment : Fragment() {
             navController.navigate(R.id.action_termsFragment_to_mathQuestionFragment)
         }
     }
-
 
 
 }

@@ -1,4 +1,8 @@
 package exercises.android.ronm.shoenotifications.onboarding.name
 
-class NameViewModel {
+import androidx.lifecycle.ViewModel
+
+class NameViewModel : ViewModel() {
+
+
 }

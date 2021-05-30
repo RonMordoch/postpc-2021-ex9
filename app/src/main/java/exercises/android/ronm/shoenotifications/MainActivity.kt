@@ -9,8 +9,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        val onboardingActivityIntent = Intent(this@MainActivity, OnboardingActivity::class.java)
-//        startActivity(onboardingActivityIntent)
-        // todo pressing back from start activity returns to this activity
+        val onboardingActivityIntent = Intent(this@MainActivity, OnboardingActivity::class.java)
+        startActivity(onboardingActivityIntent)
+        this.finish()
     }
 }

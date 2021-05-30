@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputLayout
 import exercises.android.ronm.shoenotifications.R
@@ -32,8 +35,46 @@ class MathQuestionFragment : Fragment() {
         textFieldMathAnswer = view.findViewById(R.id.outlinedTextFieldMathAnswer)
         fabMathQuestionDone = view.findViewById(R.id.fabMathQuestionDone)
 
-        // generate new question
-        textViewMathQuestion.text = mathViewModel.generateRandomQuestion().toString()
+
+        // generate a question from the view-model
+        textViewMathQuestion.text = mathViewModel.question.toString()
+
+        // set listener to answer text field
+        textFieldMathAnswer.editText?.doOnTextChanged { inputText, _, _, _ ->
+            mathViewModel.answerInputString = inputText.toString()
+        }
+
+        // set an observer to enable button upon correct answer
+        val answerCorrectObserver = Observer<Boolean?>{ isAnswerCorrect ->
+            if (isAnswerCorrect == null){
+                textFieldMathAnswer.error = ""
+                fabMathQuestionDone.isEnabled = false
+                return@Observer
+            }
+            fabMathQuestionDone.isEnabled = isAnswerCorrect
+            if (!isAnswerCorrect){
+                textFieldMathAnswer.error = "Incorrect! Try again."
+                fabMathQuestionDone.isEnabled = false
+            }
+            else
+            {
+                textFieldMathAnswer.error = ""
+                fabMathQuestionDone.isEnabled = true
+            }
+
+        }
+        mathViewModel.answerCorrectLiveData.observe(viewLifecycleOwner, answerCorrectObserver)
+
+        // set on-click listener for the fab to navigate forward
+        fabMathQuestionDone.setOnClickListener{
+            onboardingViewModel.increaseProgress()
+            val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.navHostFragment) as NavHostFragment
+            val navController = navHostFragment.navController
+            navController.navigate(R.id.action_mathQuestionFragment_to_nameFragment)
+        }
+
+
+
     }
 
 

@@ -33,27 +33,26 @@ class AgeFragment : Fragment() {
         textFieldAge = view.findViewById(R.id.outlinedTextFieldAge)
         fabAgeDone = view.findViewById(R.id.fabAgeDone)
 
-        // disable age button on init
-        fabAgeDone.isEnabled = false
-
-
         textFieldAge.editText?.doOnTextChanged { inputText, _, _, _ ->
             ageViewModel.ageInputString = inputText.toString()
         }
 
         // set an observer to enable button upon valid age input
         val ageValidObserver = Observer<Boolean?>{ isAgeValid ->
-            if (isAgeValid == null){
+            if (isAgeValid == null){ // disables button immediately when view is created in the first time
                 textFieldAge.error = ""
+                fabAgeDone.isEnabled = false
                 return@Observer
             }
             fabAgeDone.isEnabled = isAgeValid
             if (!isAgeValid){
                 textFieldAge.error = "Please enter a valid age (18+)!"
+                fabAgeDone.isEnabled = false
             }
             else
             {
                 textFieldAge.error = ""
+                fabAgeDone.isEnabled = true
             }
 
         }
