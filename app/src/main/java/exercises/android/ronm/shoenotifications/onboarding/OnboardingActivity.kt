@@ -20,14 +20,29 @@ class OnboardingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_onboarding)
 
         progressBarOnboarding = findViewById(R.id.progressBarOnboarding)
+        // set an observer for progress
+        setOnboardingProgressObserver()
+
+        // set an observer for onboarding process to be notified when user finished it
+        setOnboardingDoneObserver()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        onboardingViewModel.decreaseProgress()
+    }
+
+    private fun setOnboardingProgressObserver() {
         val progressBarObserver = Observer<Int> { progressInt ->
             progressBarOnboarding.progress = progressInt
         }
         onboardingViewModel.progressLiveData.observe(this, progressBarObserver)
+    }
 
-        val onboardingDoneObserver = Observer<Boolean>{ onboardingDone ->
-            if (onboardingDone){
-                (applicationContext as ShoeNotificationsApp).onboardingDone = true
+    private fun setOnboardingDoneObserver() {
+        val onboardingDoneObserver = Observer<Boolean> { onboardingDone ->
+            (applicationContext as ShoeNotificationsApp).onboardingDone = onboardingDone
+            if (onboardingDone) {
                 // kill this activity and start the post-onboarding one
                 val postOnboardingActivityIntent = Intent(this@OnboardingActivity, PostOnboardingActivity::class.java)
                 startActivity(postOnboardingActivityIntent)
@@ -35,11 +50,6 @@ class OnboardingActivity : AppCompatActivity() {
             }
         }
         onboardingViewModel.onboardingDoneLiveData.observe(this, onboardingDoneObserver)
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        onboardingViewModel.decreaseProgress()
     }
 
 }

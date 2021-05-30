@@ -12,11 +12,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val appContext = applicationContext as ShoeNotificationsApp
+
+        // init onboarding process if user did not finish it yet, else start the post-onboarding activity
         if (appContext.onboardingDone) {
             val postOnboardingActivityIntent = Intent(this@MainActivity, PostOnboardingActivity::class.java)
             startActivity(postOnboardingActivityIntent)
-        }
-        else{
+        } else {
             val onboardingActivityIntent = Intent(this@MainActivity, OnboardingActivity::class.java)
             startActivity(onboardingActivityIntent)
         }

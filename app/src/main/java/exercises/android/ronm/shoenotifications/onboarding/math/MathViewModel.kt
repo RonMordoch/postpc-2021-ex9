@@ -2,7 +2,6 @@ package exercises.android.ronm.shoenotifications.onboarding.math
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import java.lang.Exception
 
 class MathViewModel : ViewModel() {
 
@@ -21,6 +20,7 @@ class MathViewModel : ViewModel() {
             answerCorrectLiveData.value = false
         }
     }
+
     lateinit var question : MathQuestion
     init {
         generateRandomQuestion()
@@ -28,11 +28,11 @@ class MathViewModel : ViewModel() {
 
 
     private fun generateRandomQuestion() {
+        // probability of same question is negligible for our purposes (~ 0.003)
         val lhs = (0..9).random()
         val rhs = (0..9).random()
         val op = Operators.values().random()
         question =  MathQuestion(lhs, rhs, op)
-        // todo check we don't return the same question ( probability of that is 1/(10*10*3) ~= 0.003)
     }
 
 

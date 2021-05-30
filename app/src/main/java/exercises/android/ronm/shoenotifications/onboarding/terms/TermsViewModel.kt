@@ -1,4 +1,8 @@
 package exercises.android.ronm.shoenotifications.onboarding.terms
 
-class TermsViewModel {
+import androidx.lifecycle.ViewModel
+
+class TermsViewModel : ViewModel() {
+
+    var termsAgreed : Boolean = false
 }

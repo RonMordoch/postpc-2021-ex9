@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 
 class OnboardingViewModel : ViewModel() {
 
-    val progressLiveData = MutableLiveData<Int>(MIN_PROGRESS)
-    val onboardingDoneLiveData = MutableLiveData<Boolean>(false)
+    val progressLiveData = MutableLiveData(MIN_PROGRESS)
+    val onboardingDoneLiveData = MutableLiveData(false)
 
     fun increaseProgress() {
         if (progressLiveData.value!! < MAX_PROGRESS) {

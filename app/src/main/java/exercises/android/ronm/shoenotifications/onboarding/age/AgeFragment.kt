@@ -24,9 +24,6 @@ class AgeFragment : Fragment() {
     private val ageViewModel: AgeViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        if (savedInstanceState != null){
-            val  s1 =savedInstanceState.getString("BUNDLE_KEY_AGE")
-        }
         return inflater.inflate(R.layout.fragment_age, container, false)
     }
 
@@ -35,12 +32,25 @@ class AgeFragment : Fragment() {
 
         textFieldAge = view.findViewById(R.id.outlinedTextFieldAge)
         fabAgeDone = view.findViewById(R.id.fabAgeDone)
+        // set initial states according to view-model
+        textFieldAge.editText?.setText(ageViewModel.ageInputString)
+        fabAgeDone.isEnabled =  ageViewModel.ageValidLiveData.value ?: false // if state is null we have empty input, disable
 
+        // set a listener for age
         textFieldAge.editText?.doOnTextChanged { inputText, _, _, _ ->
             ageViewModel.ageInputString = inputText.toString()
         }
 
         // set an observer to enable button upon valid age input
+        setAgeObserver()
+
+        // set on-click listener for the fab to navigate forward
+        fabAgeDone.setOnClickListener {
+            fabAgeDoneOnClick()
+        }
+    }
+
+    private fun setAgeObserver(){
         val ageValidObserver = Observer<Boolean?> { isAgeValid ->
             if (isAgeValid == null) { // disables button immediately when view is created in the first time
                 textFieldAge.error = ""
@@ -48,24 +58,16 @@ class AgeFragment : Fragment() {
                 return@Observer
             }
             fabAgeDone.isEnabled = isAgeValid
-            if (!isAgeValid) {
-                textFieldAge.error = "Please enter a valid age (18+)!"
-                fabAgeDone.isEnabled = false
-            } else {
-                textFieldAge.error = ""
-                fabAgeDone.isEnabled = true
-            }
-
+            textFieldAge.error = if (isAgeValid) "" else getString(R.string.age_field_error_msg)
         }
         ageViewModel.ageValidLiveData.observe(viewLifecycleOwner, ageValidObserver)
+    }
 
-        // set on-click listener for the fab to navigate forward
-        fabAgeDone.setOnClickListener {
-            onboardingViewModel.increaseProgress()
-            val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.navHostFragment) as NavHostFragment
-            val navController = navHostFragment.navController
-            navController.navigate(R.id.action_ageFragment_to_termsFragment)
-        }
+    private fun fabAgeDoneOnClick(){
+        onboardingViewModel.increaseProgress()
+        val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.navigate(R.id.action_ageFragment_to_termsFragment)
     }
 
 }

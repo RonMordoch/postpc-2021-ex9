@@ -5,17 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputLayout
 import exercises.android.ronm.shoenotifications.R
 import exercises.android.ronm.shoenotifications.onboarding.OnboardingViewModel
-import exercises.android.ronm.shoenotifications.onboarding.math.MathViewModel
 
 
 class NameFragment : Fragment() {
@@ -37,47 +34,66 @@ class NameFragment : Fragment() {
         textFieldLastName = view.findViewById(R.id.textInputLastName)
         fabNameDone = view.findViewById(R.id.fabNameDone)
 
-        // set listener to first name text field
+
+        // set initial states according to view-model
+        textFieldFirstName.editText?.setText(nameViewModel.firstNameUserInput)
+        textFieldLastName.editText?.setText(nameViewModel.lastNameUserInput)
+        fabNameDone.isEnabled = nameViewModel.nameValidLiveData.value ?: false
+
+
+
+        // set listener to first-name text field
         textFieldFirstName.editText?.doOnTextChanged { inputText, _, _, _ ->
             nameViewModel.firstNameUserInput = inputText.toString()
         }
-        // set an observer for first name field
-        val firstNameValidObserver = Observer<Boolean?>{ isFirstNameValid ->
-            if (isFirstNameValid == null){
-                textFieldFirstName.error = ""
-                return@Observer
-            }
-            textFieldFirstName.error = if (isFirstNameValid) "" else "Name must be alphabetic only and at least 3 letters!"
-        }
-        nameViewModel.firstNameLiveData.observe(viewLifecycleOwner, firstNameValidObserver)
+        // set an observer for the first-name field
+        setFirstNameObserver()
 
-        // set listener to last name text field
+        // set listener to last-name text field
         textFieldLastName.editText?.doOnTextChanged { inputText, _, _, _ ->
             nameViewModel.lastNameUserInput = inputText.toString()
         }
-        // set an observer for name name field
-        val lastNameValidObserver = Observer<Boolean?>{ islastNameValid ->
-            if (islastNameValid == null){
-                textFieldLastName.error = ""
-                return@Observer
-            }
-            textFieldLastName.error = if (islastNameValid) "" else "Name must be alphabetic only and at least 3 letters!"
-        }
-        nameViewModel.lastNameLiveData.observe(viewLifecycleOwner, lastNameValidObserver)
-
+        // set an observer for the last-name field
+        setLastNameObserver()
 
         // set an observer for both fields to enable / disable button
-        val nameValidObserver = Observer<Boolean>{isNameValid ->
-            fabNameDone.isEnabled = isNameValid
-        }
-        nameViewModel.nameValidLiveData.observe(viewLifecycleOwner, nameValidObserver)
+        setUserNameValidObserver()
 
 
         // set on-click listener for the fab to navigate forward
         fabNameDone.setOnClickListener{
             onboardingViewModel.increaseProgress()
-            // finish !
+            // finish ! activity will take command from here
         }
+    }
+
+    private fun setUserNameValidObserver() {
+        val nameValidObserver = Observer<Boolean> { isNameValid ->
+            fabNameDone.isEnabled = isNameValid
+        }
+        nameViewModel.nameValidLiveData.observe(viewLifecycleOwner, nameValidObserver)
+    }
+
+    private fun setLastNameObserver() {
+        val lastNameValidObserver = Observer<Boolean?> { isLastNameValid ->
+            if (isLastNameValid == null) {
+                textFieldLastName.error = ""
+                return@Observer
+            }
+            textFieldLastName.error = if (isLastNameValid) "" else getString(R.string.name_field_invalid_name)
+        }
+        nameViewModel.lastNameLiveData.observe(viewLifecycleOwner, lastNameValidObserver)
+    }
+
+    private fun setFirstNameObserver() {
+        val firstNameValidObserver = Observer<Boolean?> { isFirstNameValid ->
+            if (isFirstNameValid == null) {
+                textFieldFirstName.error = ""
+                return@Observer
+            }
+            textFieldFirstName.error = if (isFirstNameValid) "" else getString(R.string.name_field_invalid_name)
+        }
+        nameViewModel.firstNameLiveData.observe(viewLifecycleOwner, firstNameValidObserver)
     }
 
 

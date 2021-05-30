@@ -19,24 +19,24 @@ class HelloFragment : Fragment() {
     private lateinit var fabStartOnboarding: FloatingActionButton
     private val onboardingViewModel: OnboardingViewModel by activityViewModels()
 
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_hello, container, false)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         fabStartOnboarding = view.findViewById(R.id.fabStartOnboarding)
         fabStartOnboarding.setOnClickListener {
-            onboardingViewModel.increaseProgress()
-            val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.navHostFragment) as NavHostFragment
-            val navController = navHostFragment.navController
-            navController.navigate(R.id.action_helloFragment_to_ageFragment)
+            fabStartOnboardingOnClick()
         }
+    }
 
+    private fun fabStartOnboardingOnClick() {
+        onboardingViewModel.increaseProgress()
+        val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.navigate(R.id.action_helloFragment_to_ageFragment)
     }
 
 

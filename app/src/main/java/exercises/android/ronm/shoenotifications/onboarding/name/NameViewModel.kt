@@ -13,14 +13,11 @@ class NameViewModel : ViewModel() {
                 firstNameLiveData.value = null
                 return
             }
+            firstNameLiveData.value = isNameValid(value)
             if (isNameValid(value)){
                 field = value
-                firstNameLiveData.value = true
             }
-            else
-            {
-                firstNameLiveData.value = false
-            }
+            // check if both first and last names are valid
             if (lastNameLiveData.value != null){
                 nameValidLiveData.value = (firstNameLiveData.value == true) && (lastNameLiveData.value == true)
             }
@@ -34,21 +31,18 @@ class NameViewModel : ViewModel() {
                 lastNameLiveData.value = null
                 return
             }
+            lastNameLiveData.value = isNameValid(value)
             if (isNameValid(value)){
-                lastNameLiveData.value = true
                 field = value
             }
-            else
-            {
-                lastNameLiveData.value = false
-            }
+            // check if both first and last names are valid
             if (firstNameLiveData.value != null){
                 nameValidLiveData.value = (firstNameLiveData.value == true) && (lastNameLiveData.value == true)
             }
         }
 
     // a live data for both names
-    val nameValidLiveData = MutableLiveData<Boolean>(false)
+    val nameValidLiveData = MutableLiveData(false)
 
     private fun isNameValid(name: String): Boolean {
         return (name.length >= MIN_NAME_LENGTH) && (name.all { it.isLetter() })

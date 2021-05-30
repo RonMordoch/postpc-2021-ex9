@@ -2,7 +2,6 @@ package exercises.android.ronm.shoenotifications.onboarding.age
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import java.lang.Exception
 
 class AgeViewModel : ViewModel() {
 
