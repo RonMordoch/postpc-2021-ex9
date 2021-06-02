@@ -28,6 +28,7 @@ class AgeFragment : Fragment(R.layout.fragment_age) {
 
         textFieldAge = view.findViewById(R.id.outlinedTextFieldAge)
         fabAgeDone = view.findViewById(R.id.fabAgeDone)
+
         // set initial states according to view-model
         textFieldAge.editText?.setText(ageViewModel.ageInputString)
         fabAgeDone.isEnabled = ageViewModel.ageValidLiveData.value ?: false // if state is null we have empty input, disable
