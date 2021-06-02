@@ -14,14 +14,10 @@ import exercises.android.ronm.shoenotifications.R
 import exercises.android.ronm.shoenotifications.onboarding.OnboardingViewModel
 
 
-class HelloFragment : Fragment() {
+class HelloFragment : Fragment(R.layout.fragment_hello) {
 
     private lateinit var fabStartOnboarding: FloatingActionButton
     private val onboardingViewModel: OnboardingViewModel by activityViewModels()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_hello, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -14,16 +14,12 @@ import exercises.android.ronm.shoenotifications.R
 import exercises.android.ronm.shoenotifications.onboarding.OnboardingViewModel
 
 
-class TermsFragment : Fragment() {
+class TermsFragment : Fragment(R.layout.fragment_terms) {
 
     private val onboardingViewModel: OnboardingViewModel by activityViewModels()
     private val termsViewModel: TermsViewModel by viewModels()
     private lateinit var fabAgreeToTerms: FloatingActionButton
     private lateinit var scrollViewTermsText: ScrollView
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_terms, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

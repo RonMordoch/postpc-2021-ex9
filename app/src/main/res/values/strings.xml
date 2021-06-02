@@ -5,4 +5,6 @@
     <string name="age_field_error_msg">Please enter a valid age (18+)!</string>
     <string name="math_field_incorrect_answer">Incorrect answer! Try again.</string>
     <string name="name_field_invalid_name">" must be alphabetic only and at least 3 letters!</string>
+    <string name="shoe_notification_logo_description">shoe_notification_logo</string>
+    <string name="math_question_prompt">So you want to be our customer. \nLet\'s see if you\'re up to the task!</string>
 </resources>

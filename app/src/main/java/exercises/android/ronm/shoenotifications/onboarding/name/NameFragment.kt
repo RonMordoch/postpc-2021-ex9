@@ -15,17 +15,13 @@ import exercises.android.ronm.shoenotifications.R
 import exercises.android.ronm.shoenotifications.onboarding.OnboardingViewModel
 
 
-class NameFragment : Fragment() {
+class NameFragment : Fragment(R.layout.fragment_name) {
 
     private val onboardingViewModel: OnboardingViewModel by activityViewModels()
-    private val nameViewModel : NameViewModel by viewModels()
-    private lateinit var textFieldFirstName : TextInputLayout
-    private lateinit var textFieldLastName : TextInputLayout
-    private lateinit var fabNameDone : FloatingActionButton
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_name, container, false)
-    }
+    private val nameViewModel: NameViewModel by viewModels()
+    private lateinit var textFieldFirstName: TextInputLayout
+    private lateinit var textFieldLastName: TextInputLayout
+    private lateinit var fabNameDone: FloatingActionButton
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,7 +35,6 @@ class NameFragment : Fragment() {
         textFieldFirstName.editText?.setText(nameViewModel.firstNameUserInput)
         textFieldLastName.editText?.setText(nameViewModel.lastNameUserInput)
         fabNameDone.isEnabled = nameViewModel.nameValidLiveData.value ?: false
-
 
 
         // set listener to first-name text field
@@ -61,7 +56,7 @@ class NameFragment : Fragment() {
 
 
         // set on-click listener for the fab to navigate forward
-        fabNameDone.setOnClickListener{
+        fabNameDone.setOnClickListener {
             onboardingViewModel.increaseProgress()
             // finish ! activity will take command from here
         }

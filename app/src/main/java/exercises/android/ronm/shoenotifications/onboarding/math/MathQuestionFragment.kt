@@ -16,17 +16,13 @@ import com.google.android.material.textfield.TextInputLayout
 import exercises.android.ronm.shoenotifications.R
 import exercises.android.ronm.shoenotifications.onboarding.OnboardingViewModel
 
-class MathQuestionFragment : Fragment() {
+class MathQuestionFragment : Fragment(R.layout.fragment_math_question) {
 
     private val onboardingViewModel: OnboardingViewModel by activityViewModels()
     private val mathViewModel: MathViewModel by viewModels()
     private lateinit var textViewMathQuestion: TextView
     private lateinit var textFieldMathAnswer: TextInputLayout
     private lateinit var fabMathDone: FloatingActionButton
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_math_question, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,7 +64,7 @@ class MathQuestionFragment : Fragment() {
         mathViewModel.answerCorrectLiveData.observe(viewLifecycleOwner, answerCorrectObserver)
     }
 
-    private fun fabMathDoneOnClick(){
+    private fun fabMathDoneOnClick() {
         onboardingViewModel.increaseProgress()
         val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.navHostFragment) as NavHostFragment
         val navController = navHostFragment.navController

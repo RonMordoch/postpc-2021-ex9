@@ -16,16 +16,12 @@ import exercises.android.ronm.shoenotifications.R
 import exercises.android.ronm.shoenotifications.onboarding.OnboardingViewModel
 
 
-class AgeFragment : Fragment() {
+class AgeFragment : Fragment(R.layout.fragment_age) {
 
     private lateinit var textFieldAge: TextInputLayout
     private lateinit var fabAgeDone: FloatingActionButton
     private val onboardingViewModel: OnboardingViewModel by activityViewModels()
     private val ageViewModel: AgeViewModel by viewModels()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_age, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,7 +30,7 @@ class AgeFragment : Fragment() {
         fabAgeDone = view.findViewById(R.id.fabAgeDone)
         // set initial states according to view-model
         textFieldAge.editText?.setText(ageViewModel.ageInputString)
-        fabAgeDone.isEnabled =  ageViewModel.ageValidLiveData.value ?: false // if state is null we have empty input, disable
+        fabAgeDone.isEnabled = ageViewModel.ageValidLiveData.value ?: false // if state is null we have empty input, disable
 
         // set a listener for age
         textFieldAge.editText?.doOnTextChanged { inputText, _, _, _ ->
@@ -50,7 +46,7 @@ class AgeFragment : Fragment() {
         }
     }
 
-    private fun setAgeObserver(){
+    private fun setAgeObserver() {
         val ageValidObserver = Observer<Boolean?> { isAgeValid ->
             if (isAgeValid == null) { // disables button immediately when view is created in the first time
                 textFieldAge.error = ""
@@ -63,7 +59,7 @@ class AgeFragment : Fragment() {
         ageViewModel.ageValidLiveData.observe(viewLifecycleOwner, ageValidObserver)
     }
 
-    private fun fabAgeDoneOnClick(){
+    private fun fabAgeDoneOnClick() {
         onboardingViewModel.increaseProgress()
         val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.navHostFragment) as NavHostFragment
         val navController = navHostFragment.navController

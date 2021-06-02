@@ -16,7 +16,7 @@
         android:textSize="24sp"
         android:layout_marginTop="10dp"
         android:layout_marginStart="16dp"
-        android:text="So you want to be our customer.    Let's see if you're up to the task!"
+        android:text="@string/math_question_prompt"
         />
 
     <TextView
