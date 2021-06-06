@@ -18,9 +18,6 @@ class ShoeNotificationsApp : Application() {
     override fun onCreate() {
         super.onCreate()
         val sp = getSharedPreferences(SP_NAME , MODE_PRIVATE)
-        // TODO for debug
-        sp.edit().clear().apply()
-        //
         onboardingDone = sp.getBoolean(SP_ONBOARDING_DONE_KEY, false)
     }
 }
