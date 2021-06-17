@@ -1,55 +1,109 @@
-//package exercises.android.ronm.shoenotifications
-//
-//import androidx.fragment.app.testing.launchFragmentInContainer
-//import androidx.navigation.NavController
-//import androidx.navigation.Navigation
-//import androidx.navigation.testing.TestNavHostController
-//import androidx.test.core.app.ApplicationProvider
-//import androidx.test.espresso.Espresso.onView
-//import androidx.test.espresso.action.ViewActions.click
-//import androidx.test.espresso.action.ViewActions.replaceText
-//import androidx.test.espresso.matcher.ViewMatchers.*
-//import androidx.test.ext.junit.runners.AndroidJUnit4
-//import exercises.android.ronm.shoenotifications.onboarding.age.AgeFragment
-//import exercises.android.ronm.shoenotifications.onboarding.hello.HelloFragment
-//import org.junit.Test
-//import org.junit.runner.RunWith
-//import org.mockito.Mockito.mock
-//import org.mockito.Mockito.verify
-//
-//
-//@RunWith(AndroidJUnit4::class)
-//class AgeFragmentTest {
-//
-//    @Test
-//    fun testAgeFragmentNav(){
-////        val scenario =  launchFragmentInContainer<AgeFragment>()
-////        // create a mock NavController
-////        val navController = mock(NavController::class.java)
-////        // make our new mock the fragment's NavController
-////        scenario.onFragment {
-////            Navigation.setViewNavController(it.view!!, navController)
-////        }
-////        onView(withId(R.id.outlinedTextFieldAge)).perform(replaceText("25"))
-////        onView(withId(R.id.fabAgeDone)).perform(click())
-////        verify(navController).navigate(R.id.action_ageFragment_to_termsFragment)
-//
-//
-//        val navController = TestNavHostController(
-//            ApplicationProvider.getApplicationContext())
-//        val titleScenario = launchFragmentInContainer<HelloFragment>()
-//        titleScenario.onFragment { fragment ->
-//            // Set the graph on the TestNavHostController
-//            navController.setGraph(R.navigation.navigation_graph)
-//            Navigation.setViewNavController(fragment.requireView(), navController)
-//            onView(withId(R.id.fabStartOnboarding)).perform(click())
-//            assertThat(navController.currentDestination?.id).isEqualTo(R.id.ageFragment)
-//
-//        }
-//
-//
-//
-//
-//
-//    }
-//}
+package exercises.android.ronm.shoenotifications
+
+import android.view.View
+import androidx.fragment.app.testing.FragmentScenario
+import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.lifecycle.Lifecycle
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.google.android.material.textfield.TextInputLayout
+import exercises.android.ronm.shoenotifications.onboarding.age.AgeFragment
+import org.hamcrest.CoreMatchers.not
+import org.hamcrest.Description
+import org.hamcrest.Matcher
+import org.hamcrest.TypeSafeMatcher
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+
+
+@RunWith(AndroidJUnit4::class)
+class AgeFragmentTest {
+
+    private lateinit var scenario: FragmentScenario<AgeFragment>
+
+    @Before
+    fun setUp() {
+        scenario = launchFragmentInContainer(themeResId = R.style.Theme_ShoeNotifications)
+        scenario.moveToState(Lifecycle.State.STARTED)
+
+    }
+
+    @Test
+    fun whenEmptyAgeInput_then_fabShouldBeDisabled() {
+        onView(withId(R.id.fabAgeDone)).check(matches(not(isEnabled())))
+
+    }
+
+    @Test
+    fun whenInvalidAgeInput_then_fabShouldBeDisabled() {
+        onView(withId(R.id.editTextInputAge)).perform(typeText(INVALID_AGE))
+        onView(withId(R.id.fabAgeDone)).check(matches(not(isEnabled())))
+    }
+
+
+    @Test
+    fun whenValidAgeInput_then_fabShouldBeEnabled_and_Clickable() {
+        onView(withId(R.id.editTextInputAge)).perform(typeText(VALID_AGE))
+        onView(withId(R.id.fabAgeDone)).check(matches(isEnabled()))
+    }
+
+    @Test
+    fun test_AgeTextFieldHint() {
+        onView(withId(R.id.textFieldAge)).check(matches(hasTextInputLayoutHintText(VALID_AGE_HINT)))
+    }
+
+    @Test
+    fun test_AgeTextFieldError_when_InvalidInputIsTyped_withValidErrorMsg() {
+        onView(withId(R.id.editTextInputAge)).perform(typeText(INVALID_AGE))
+        onView(withId(R.id.textFieldAge)).check(matches(hasTextInputLayoutErrorText(AGE_ERROR_MSG_VALID)))
+    }
+
+    @Test
+    fun test_AgeTextFieldError_when_InvalidInputIsTyped_withInvalidErrorMsg() {
+        onView(withId(R.id.editTextInputAge)).perform(typeText(INVALID_AGE))
+        onView(withId(R.id.textFieldAge)).check(matches(not(hasTextInputLayoutErrorText(AGE_ERROR_MSG_INVALID))))
+    }
+
+
+    // Private custom matchers for Material Design's TextInputLayout
+
+    // hint matcher
+    private fun hasTextInputLayoutHintText(expectedHintText: String): Matcher<View> = object : TypeSafeMatcher<View>() {
+
+        override fun describeTo(description: Description?) {}
+
+        override fun matchesSafely(item: View?): Boolean {
+            if (item !is TextInputLayout) return false
+            val error = item.hint ?: return false
+            val hint = error.toString()
+            return expectedHintText == hint
+        }
+    }
+
+    // error matcher
+    private fun hasTextInputLayoutErrorText(expectedErrorText: String): Matcher<View> = object : TypeSafeMatcher<View>() {
+
+        override fun describeTo(description: Description?) {}
+
+        override fun matchesSafely(item: View?): Boolean {
+            if (item !is TextInputLayout) return false
+            val error = item.error ?: return false
+            val hint = error.toString()
+            return expectedErrorText == hint
+        }
+    }
+
+    companion object {
+        private const val INVALID_AGE = "17"
+        private const val VALID_AGE = "18"
+        private const val VALID_AGE_HINT = "Age"
+        private const val AGE_ERROR_MSG_VALID = "Please enter a valid age (18+)!"
+        private const val AGE_ERROR_MSG_INVALID = "get lost!"
+    }
+
+
+}

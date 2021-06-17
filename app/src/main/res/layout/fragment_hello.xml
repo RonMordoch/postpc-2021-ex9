@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:text="Welcome to ShoeNotifications!"
+        android:text="@string/welcome_msg_1"
         android:textStyle="bold"
         android:textSize="24sp"
         />
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Let's get to know each other."
+        android:text="@string/welcome_msg_2"
         android:textStyle="bold"
         android:textSize="24sp"
         />
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="224dp"
-        android:contentDescription="Start onboarding process"
+        android:contentDescription="@string/fab_start_onboarding_description"
         app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
 

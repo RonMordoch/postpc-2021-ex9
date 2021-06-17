@@ -2,9 +2,7 @@ package exercises.android.ronm.shoenotifications.onboarding.math
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
@@ -28,7 +26,7 @@ class MathQuestionFragment : Fragment(R.layout.fragment_math_question) {
         super.onViewCreated(view, savedInstanceState)
 
         textViewMathQuestion = view.findViewById(R.id.textViewMathQuestion)
-        textFieldMathAnswer = view.findViewById(R.id.outlinedTextFieldMathAnswer)
+        textFieldMathAnswer = view.findViewById(R.id.textFieldMathAnswer)
         fabMathDone = view.findViewById(R.id.fabMathDone)
 
         // set initial states according to view-model

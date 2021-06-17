@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShoeNotifications"
         android:name=".ShoeNotificationsApp">
-        <activity android:name=".PostOnboardingActivity"></activity>
+        <activity android:name=".PostOnboardingActivity" />
         <activity android:name=".onboarding.OnboardingActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

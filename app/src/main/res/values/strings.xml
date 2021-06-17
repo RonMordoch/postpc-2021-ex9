@@ -7,4 +7,19 @@
     <string name="name_field_invalid_name">" must be alphabetic only and at least 3 letters!</string>
     <string name="shoe_notification_logo_description">shoe_notification_logo</string>
     <string name="math_question_prompt">So you want to be our customer. \nLet\'s see if you\'re up to the task!</string>
+    <string name="welcome_msg_1">Welcome to ShoeNotifications!</string>
+    <string name="welcome_msg_2">Let\'s get to know each other.</string>
+    <string name="fab_start_onboarding_description">Start onboarding process</string>
+    <string name="age_fragment_question">How old are you?</string>
+    <string name="age_fragment_input_hint">Age</string>
+    <string name="fab_age_done_description">Finish entering age</string>
+    <string name="text_field_math_answer_hint">Solution</string>
+    <string name="fab_math_done_description">Floating action button: math question done</string>
+    <string name="name_fragment_text_view_msg">And last but not least, what\'s your name?</string>
+    <string name="first_name_text_input_hint">First name</string>
+    <string name="last_name_text_input_hint">Last name</string>
+    <string name="fab_name_done_description">Floating action button: name done</string>
+    <string name="terms_fragment_text_view_msg">Please read and accept our terms and conditions:</string>
+    <string name="fab_agree_to_terms_description">Floating action button: agree to terms</string>
+    <string name="shoe_notification_logo_description">shoe_notification_logo</string>
 </resources>

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="Please read and accept our terms and conditions:"
+        android:text="@string/terms_fragment_text_view_msg"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +56,8 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/scrollViewTermsText"
-        app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+        app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+        android:contentDescription="@string/fab_agree_to_terms_description" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,9 +2,7 @@ package exercises.android.ronm.shoenotifications.onboarding.age
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -26,7 +24,7 @@ class AgeFragment : Fragment(R.layout.fragment_age) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        textFieldAge = view.findViewById(R.id.outlinedTextFieldAge)
+        textFieldAge = view.findViewById(R.id.textFieldAge)
         fabAgeDone = view.findViewById(R.id.fabAgeDone)
 
         // set initial states according to view-model
