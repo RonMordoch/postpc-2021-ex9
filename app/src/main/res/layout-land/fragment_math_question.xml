@@ -16,7 +16,7 @@
         android:textSize="24sp"
         android:layout_marginTop="10dp"
         android:layout_marginStart="16dp"
-        android:text="@string/math_question_prompt"
+        android:text="@string/math_question_prompt_land"
         />
 
     <TextView
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textFieldMathAnswer"
         app:layout_constraintEnd_toEndOf="@id/textFieldMathAnswer"
         app:srcCompat="@drawable/ic_baseline_check_24"
         android:contentDescription="@string/fab_math_done_description" />
