@@ -23,10 +23,12 @@ The 5 sub packages are:
 that moment the user will (always) see the PostOnboardingActivity.
 
 The navigation graph is as follows:
-<img src="ex9_nav_graph.jpg" width="50%" height="50%"> 
 
-The user can return to previous fragments using android's BACK button, and all previous information will stay intact.
 
+<img src="ex9_nav_graph.jpg" width="100%" height="100%"> 
+
+The user can return to previous fragments using android's BACK button, and all previous information will stay intact thanks to View-Model.
+Each layout also has a 'landscape' mode.
 
 ## Android components and libraries used
 
@@ -40,4 +42,4 @@ The user can return to previous fragments using android's BACK button, and all p
 
 ## Academic Integrity
 I pledge the highest level of ethical principles in support of academic excellence.  
-I ensure that all of my work reflects my own abilities and not those of someone else." 
+I ensure that all of my work reflects my own abilities and not those of someone else.
